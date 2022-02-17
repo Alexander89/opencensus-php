@@ -74,6 +74,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: opencensus_x86
-          path: ext/x86
+          path: ext/Release_TS
       - name: test
         run: cd ext && nmake test TESTS=tests
