@@ -34,5 +34,9 @@ jobs:
         run: cd ext && configure --enable-opencensus --with-prefix=${{steps.setup-php.outputs.prefix}}
       - name: make
         run: cd ext && nmake
+      - uses: actions/upload-artifact@v2
+        with:
+          name: opencensus
+          path: ext/modules
       - name: test
         run: cd ext && nmake test TESTS=tests
