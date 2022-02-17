@@ -90,7 +90,9 @@ PHP_FUNCTION(opencensus_version);
  */
 static zend_function_entry opencensus_functions[] = {
     PHP_FE(opencensus_version, arginfo_void)
+#ifndef PHP_WIN32
 	PHP_FE(opencensus_core_send_to_daemonclient, arginfo_opencensus_core_send_to_daemon)
+#endif
     PHP_FE(opencensus_trace_function, arginfo_opencensus_trace_function)
     PHP_FE(opencensus_trace_method, arginfo_opencensus_trace_method)
     PHP_FE(opencensus_trace_list, arginfo_void)
@@ -187,7 +189,10 @@ PHP_MINIT_FUNCTION(opencensus)
  */
 PHP_MSHUTDOWN_FUNCTION(opencensus)
 {
+
+#ifndef PHP_WIN32
 	opencensus_core_daemonclient_mshutdown(SHUTDOWN_FUNC_ARGS_PASSTHRU);
+#endif
 
 	UNREGISTER_INI_ENTRIES();
 
@@ -200,7 +205,9 @@ PHP_MSHUTDOWN_FUNCTION(opencensus)
 PHP_RINIT_FUNCTION(opencensus)
 {
 	opencensus_trace_rinit();
+#ifndef PHP_WIN32
 	opencensus_core_daemonclient_rinit();
+#endif
     return SUCCESS;
 }
 
@@ -208,7 +215,9 @@ PHP_RINIT_FUNCTION(opencensus)
  */
 PHP_RSHUTDOWN_FUNCTION(opencensus)
 {
+#ifndef PHP_WIN32
 	opencensus_core_daemonclient_rshutdown();
+#endif
 	opencensus_trace_rshutdown();
 
     return SUCCESS;
