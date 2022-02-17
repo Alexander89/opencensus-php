@@ -36,7 +36,7 @@ jobs:
         run: cd ext && nmake
       - uses: actions/upload-artifact@v2
         with:
-          name: opencensus
+          name: opencensus_x64
           path: ext/x64
       - name: test
         run: cd ext && nmake test TESTS=tests
@@ -73,7 +73,7 @@ jobs:
         run: cd ext && nmake
       - uses: actions/upload-artifact@v2
         with:
-          name: opencensus
+          name: opencensus_x86
           path: ext/x86
       - name: test
         run: cd ext && nmake test TESTS=tests
